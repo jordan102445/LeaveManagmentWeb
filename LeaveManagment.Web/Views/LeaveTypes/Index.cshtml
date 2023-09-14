@@ -1,0 +1,91 @@
+﻿@model IEnumerable<LeaveTypeVM_View_Model_>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a class="btn btn-success btn-lg" asp-action="Create"><i class="fa-solid fa-plus"></i>&nbsp; Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DeafultDays)
+            </th>
+            
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+
+                @Html.DisplayFor(modelItem => item.Name)
+
+            </td>
+            <td>
+
+                @Html.DisplayFor(modelItem => item.DeafultDays)
+
+            </td>
+           
+            <td>
+
+                    <a class="btn btn-warning " asp-action="Edit" asp-route-id="@item.Id"><i class="fa-solid fa-pen-to-square"></i>&nbsp; Edit</a> |
+                    <a class="btn btn-info " asp-action="Details" asp-route-id="@item.Id"><i class="fa-solid fa-circle-info"></i>&nbsp; Details</a> |
+               @*@<a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.Id">Delete</a>*@
+                    <button data-id="@item.Id" class="btn btn-danger  deleteBtn" type="button"><i class="fa-solid fa-trash"></i>&nbsp; Delete</button>
+              
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<form id="deleteFrom" asp-action="Delete">
+    <input type="hidden" id="leaveTypeId" name="Id" /> @*koga se pretisne button se dodele id to ovde*@ 
+   
+</form>
+
+@section Scripts {
+
+    <script>
+        $(function () {
+
+            $('.table').DataTable();
+
+            $('.deleteBtn').click(function (e) {
+                swal({
+
+                    title: "Are you sure?",
+                    text: "Are you sure you want to delete this record?",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true
+
+                }).then((confirm) => {
+
+                    if (confirm) {
+                        var btn = $(this); // zima se prvo buttono 
+                        var id = btn.data("id"); @* pa potoa id to represent this data-id="@item.Id" *@
+                            $('#leaveTypeId').val(id);  @* potoa se zima vrednosta na id to primer 4 , 3 , 2 etc *@ 
+                             $('#deleteFrom').submit(); @* koga ke submitne ili pretisne se aktivira
+                                <form id="deleteForm" i ode vo LeaveTypeController vo delot za Delete da go izbirise od bazata *@
+                    }
+                });
+
+            });
+
+        });
+            
+
+            
+    </script>
+}
