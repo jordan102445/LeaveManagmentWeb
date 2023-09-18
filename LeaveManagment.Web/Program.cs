@@ -3,6 +3,11 @@ using LeaveManagment.Web.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
+using LeaveManagment.Web.Contracts;
+using LeaveManagment.Web.Repositories;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using LeaveManagment.Web.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -12,8 +17,16 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<Employee>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
+
+
+builder.Services.AddTransient<IEmailSender>(email => new EmailSender("localhost", 25 ,"noreply@leavemanagment.com")); // sekogas koga ke se pobara za verfication na mail da se aktivira EmailSender // Trasient raboti ako se pobara da se aktivira EmailSender tuka primer
+
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+builder.Services.AddScoped<IleaveTypeRepository,LeaveTypeRepository>();
 
 builder.Services.AddAutoMapper(typeof(MapperConfig)); // MappperConifig e class vo Configurations
 
