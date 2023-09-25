@@ -16,6 +16,8 @@ namespace LeaveManagment.Web.Data
 
         public string EmployeeId { get; set; }  
 
+        public int  Period { get; set; } // koj period izlegol vraboteniot 2021 , 2022 etc 
+
        
 
     }

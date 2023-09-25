@@ -23,12 +23,15 @@ builder.Services.AddDefaultIdentity<Employee>(options => options.SignIn.RequireC
 
 builder.Services.AddTransient<IEmailSender>(email => new EmailSender("localhost", 25 ,"noreply@leavemanagment.com")); // sekogas koga ke se pobara za verfication na mail da se aktivira EmailSender // Trasient raboti ako se pobara da se aktivira EmailSender tuka primer
 
-builder.Services.AddControllersWithViews();
 
-builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<IleaveTypeRepository,LeaveTypeRepository>();
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+builder.Services.AddScoped<ILeaveAllocationRepository,LeaveAllocationRepository>();
 
 builder.Services.AddAutoMapper(typeof(MapperConfig)); // MappperConifig e class vo Configurations
+
+
+builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 

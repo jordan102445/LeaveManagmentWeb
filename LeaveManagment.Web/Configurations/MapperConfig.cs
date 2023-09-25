@@ -9,7 +9,11 @@ namespace LeaveManagment.Web.Configurations
         public MapperConfig()
         {
             CreateMap<LeaveType, LeaveTypeVM_View_Model_>().ReverseMap();  // convert from data model to view model(na korisnickiot interfejs)
-            
+            CreateMap<Employee,EmployeeListVM>().ReverseMap();
+            CreateMap<Employee,EmployeeAllocationVM>().ReverseMap();
+            CreateMap<LeaveAllocation, LeaveAllocationVM>().ReverseMap();
+            CreateMap<LeaveAllocation, LeaveAllocationEditVM>().ReverseMap();
+
         }
 
     }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNetCore.Identity;
 using System.Data;
 
 namespace LeaveManagment.Web.Data
